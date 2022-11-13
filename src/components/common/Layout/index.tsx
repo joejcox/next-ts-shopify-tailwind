@@ -1,25 +1,18 @@
 import Link from "next/link";
 import { ReactNode } from "react";
+import { MainMenu, ShopifyCategories } from "types/shopify";
 import styles from "./Layout.module.css";
-
-interface ShopifyCategory {
-  id: string;
-  title: string;
-  handle: string;
-}
-
-export interface ShopifyCategories {
-  nodes: ShopifyCategory[];
-}
 
 interface Props {
   pageProps: {
     categories: ShopifyCategories;
+    menu: MainMenu;
   };
   children: ReactNode;
 }
 
 export default function Layout({ children, pageProps }: Props) {
+  const { menu } = pageProps;
   return (
     <>
       <header className="h-[100px]">
@@ -28,10 +21,21 @@ export default function Layout({ children, pageProps }: Props) {
             Gori<span className="text-red-500">.</span>
           </div>
           <nav className="flex">
-            {pageProps.categories.nodes.map((category) => (
-              <Link key={category.id} href={`/${category.handle}`} className="px-4 py-2 hover:text-red-500">
-                {category.title}
-              </Link>
+            {menu.items?.map((item) => (
+              <div key={item.id} className="group relative inline-block py-2 px-4">
+                <Link href={item.url} className="">
+                  {item.title}
+                </Link>
+                {item.items.length > 0 && (
+                  <div className="opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto absolute top-full w-40 left-0 bg-white rounded shadow-xl p-2">
+                    {item.items.map((subItem) => (
+                      <Link key={subItem.id} href={subItem.url} className="block">
+                        {subItem.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
         </div>

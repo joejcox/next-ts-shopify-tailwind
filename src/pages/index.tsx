@@ -1,25 +1,8 @@
-import Layout, { ShopifyCategories } from "components/common/Layout";
+import Layout from "components/common/Layout";
 import { gql } from "graphql-request";
-import { shopifyRequest } from "lib/graphql";
+import { getMenu, shopifyRequest } from "lib/shopify-storefront";
 import Image from "next/image";
-import Link from "next/link";
-
-interface ShopifyImage {
-  id: string;
-  url: string;
-}
-
-interface ShopifyProduct {
-  title: string;
-  id: string;
-  images: {
-    nodes: ShopifyImage[];
-  };
-}
-
-interface ShopifyProducts {
-  nodes: ShopifyProduct[];
-}
+import { ShopifyCategories, ShopifyProducts } from "types/shopify";
 
 interface Props {
   products: ShopifyProducts;
@@ -74,12 +57,16 @@ export async function getStaticProps() {
   `;
 
   try {
-    const response = await shopifyRequest(query);
+    const productsQuery = shopifyRequest(query);
+    const menuQuery = getMenu();
+
+    const [data, menu] = await Promise.all([productsQuery, menuQuery]);
 
     return {
       props: {
-        products: response.products,
-        categories: response.collections ?? [],
+        products: data.products,
+        categories: data.collections,
+        menu,
       },
     };
   } catch (error) {
