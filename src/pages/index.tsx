@@ -1,3 +1,4 @@
+import Layout, { ShopifyCategories } from "components/common/Layout";
 import { gql } from "graphql-request";
 import { shopifyRequest } from "lib/graphql";
 import Image from "next/image";
@@ -22,26 +23,12 @@ interface ShopifyProducts {
 
 interface Props {
   products: ShopifyProducts;
+  categories: ShopifyCategories;
 }
 
 export default function Home({ products }: Props) {
   return (
     <>
-      <header className="h-[100px]">
-        <div className="container h-full mx-auto flex items-center justify-between">
-          <div className="text-4xl leading-[1]">
-            Gori<span className="text-red-500">.</span>
-          </div>
-          <nav className="flex">
-            <Link href="/" className="px-4 py-2 hover:text-red-500">
-              Home
-            </Link>
-            <Link href="/" className="px-4 py-2 hover:text-red-500">
-              Collection
-            </Link>
-          </nav>
-        </div>
-      </header>
       <section className="py-32 border-y">
         <div className="container">
           <h1 className="text-6xl mb-16">Featured Products</h1>
@@ -59,6 +46,8 @@ export default function Home({ products }: Props) {
   );
 }
 
+Home.Layout = Layout;
+
 export async function getStaticProps() {
   const query = gql`
     {
@@ -74,6 +63,13 @@ export async function getStaticProps() {
           }
         }
       }
+      collections(first: 5) {
+        nodes {
+          id
+          title
+          handle
+        }
+      }
     }
   `;
 
@@ -82,7 +78,8 @@ export async function getStaticProps() {
 
     return {
       props: {
-        products: response.products as ShopifyProducts,
+        products: response.products,
+        categories: response.collections ?? [],
       },
     };
   } catch (error) {

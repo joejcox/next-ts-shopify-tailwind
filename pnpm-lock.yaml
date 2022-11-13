@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@shopify/shopify-api': ^5.2.0
+  '@types/js-cookie': ^3.0.2
   '@types/node': 18.11.9
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.8
@@ -10,6 +11,7 @@ specifiers:
   eslint-config-next: 13.0.3
   graphql: ^16.6.0
   graphql-request: ^5.0.0
+  js-cookie: ^3.0.1
   next: 13.0.3
   postcss: ^8.4.19
   react: 18.2.0
@@ -27,12 +29,16 @@ dependencies:
   eslint-config-next: 13.0.3_rmayb2veg2btbq6mbmnyivgasy
   graphql: 16.6.0
   graphql-request: 5.0.0_graphql@16.6.0
+  js-cookie: 3.0.1
   next: 13.0.3_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.19
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   tailwindcss: 3.2.4_postcss@8.4.19
   typescript: 4.8.4
+
+devDependencies:
+  '@types/js-cookie': 3.0.2
 
 packages:
 
@@ -1182,6 +1188,10 @@ packages:
   /@types/cookiejar/2.1.2:
     resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
     dev: false
+
+  /@types/js-cookie/3.0.2:
+    resolution: {integrity: sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==}
+    dev: true
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
@@ -2758,6 +2768,11 @@ packages:
 
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+    dev: false
+
+  /js-cookie/3.0.1:
+    resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
+    engines: {node: '>=12'}
     dev: false
 
   /js-sdsl/4.1.5:
